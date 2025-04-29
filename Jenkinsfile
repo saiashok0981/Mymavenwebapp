@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven_3.8.7'
-        jdk 'JDK_17'
+        maven 'Maven'   // Make sure 'Maven' is configured in Global Tool Configuration
+        jdk 'JDK'       // Make sure 'JDK' is configured in Global Tool Configuration
     }
 
     stages {
@@ -18,12 +18,6 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
-
-        stage('Deploy WAR') {
-            steps {
-                // Replace with your actual remote details
-                sh 'scp target/my-webapp.war user@your-server:/path/to/tomcat/webapps/'
-            }
         }
     }
 }
