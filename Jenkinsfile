@@ -2,14 +2,14 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven'  // Use the name configured in Jenkins
-        jdk 'JDK'      // Use the name configured in Jenkins
+        maven 'Maven'  // This must match the Maven name in Jenkins config
+        jdk 'JDK'      // This must match the JDK name in Jenkins config
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/saiashok0981/Mymavenwebapp.git'
+                git 'https://github.com/yasasvini2818/MymavenWebApp.git'
             }
         }
 
@@ -19,11 +19,14 @@ pipeline {
             }
         }
 
-        stage('Deploy WAR') {
-            steps {
-                // Ensure SSH is configured on Jenkins or manually provide SSH keys
-                sh 'scp target/MymavenWebApp01.war user@your-server:/path/to/tomcat/webapps/'
-            }
+    }
+
+    post {
+        success {
+            echo 'Build and deployment successful.'
+        }
+        failure {
+            echo 'Build or deployment failed.'
         }
     }
 }
