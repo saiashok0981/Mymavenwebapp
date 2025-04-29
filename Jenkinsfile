@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven'   // Make sure 'Maven' is configured in Global Tool Configuration
-        jdk 'JDK'       // Make sure 'JDK' is configured in Global Tool Configuration
+        maven 'Maven'  // Use the name configured in Jenkins
+        jdk 'JDK'      // Use the name configured in Jenkins
     }
 
     stages {
@@ -18,6 +18,12 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
+
+        stage('Deploy WAR') {
+            steps {
+                // Ensure SSH is configured on Jenkins or manually provide SSH keys
+                sh 'scp target/MymavenWebApp01.war user@your-server:/path/to/tomcat/webapps/'
+            }
         }
     }
 }
